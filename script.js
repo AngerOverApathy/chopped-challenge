@@ -1,22 +1,29 @@
 const button = document.getElementById('btn')
 const recipeName = document.getElementById('recipe-name')
+const imageElement = document.getElementById('picture');
 const ingredientList  = document.getElementById('ingredients')
 const instructionContent = document.getElementById('instructions')
 
 button.addEventListener('click', getRecipe)
 
 function getRecipe(){
+
+    recipeName.innerText=''
+    imageElement.src = ''
+    ingredientList.innerText=''
+    instructionContent.innerText=''
+
     fetch('https://rocky-peak-03610.herokuapp.com/http://www.themealdb.com/api/json/v1/1/random.php')
         .then(response => response.json())
         .then(data => {
-
             const mealArr = data.meals[0]
+            //recipe name
+            recipeName.innerText = mealArr.strMeal 
+            //food image
+            const foodImg = mealArr.strMealThumb
+            imageElement.src = foodImg // Update the src attribute with the new image URL
 
-            recipeName.innerText = mealArr.strMeal //name
-
-            const foodImg = mealArr.strMealThumb //food image
-            console.log(foodImg)
-
+            //ingredient list w/ measurements
             Object.keys(mealArr).forEach(key => {
                 if (key.startsWith("strIngredient")) {
                   const ingredientNumber = key.slice(13); // Extract the ingredient number from the key
