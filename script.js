@@ -44,11 +44,8 @@ function getRecipe(){
 
 
             //instructions with added number and spaces
-            const instructionsArray = mealArr.strInstructions.split('\r\n');
-            const instructionsHTML = instructionsArray.map((instruction, index) => {
-                return `<span class="line-number">${index + 1})</span> ${instruction}<br><br>`;
-            });
-            instructionContent.innerHTML = instructionsHTML.join('');
+            const instructions = mealArr.strInstructions.replace(/\r\n/g, '<br>');
+            instructionContent.innerHTML = instructions;
         
 
             //let vidTutorial = mealArr.strYoutube //video tutorial
