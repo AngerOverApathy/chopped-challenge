@@ -1,6 +1,6 @@
-let button = document.getElementById('btn')
-let recipeName = document.getElementById('recipe-name')
-let ingredientList  = document.getElementById('ingredients')
+const button = document.getElementById('btn')
+const recipeName = document.getElementById('recipe-name')
+const ingredientList  = document.getElementById('ingredients')
 const instructionContent = document.getElementById('instructions')
 
 button.addEventListener('click', getRecipe)
@@ -14,22 +14,8 @@ function getRecipe(){
 
             recipeName.innerText = mealArr.strMeal //name
 
-            let foodImg = mealArr.strMealThumb //food image
+            const foodImg = mealArr.strMealThumb //food image
             console.log(foodImg)
-
-            //get each ingredient from object properties and append to list in DOM
-            // Object.keys(mealArr).forEach(key => {
-            //     if (key.startsWith("strIngredient")) {
-            //       const ingredient = mealArr[key];
-            //       if (ingredient && ingredient.trim() !== "") {
-
-            //         const li = document.createElement('li')
-            //         li.textContent = ingredient
-            //         ingredientList.appendChild(li)
-            //       }
-            //     }
-            //   })
-
 
             Object.keys(mealArr).forEach(key => {
                 if (key.startsWith("strIngredient")) {
