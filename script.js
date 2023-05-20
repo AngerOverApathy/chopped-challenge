@@ -4,6 +4,8 @@ const imageElement = document.getElementById('picture');
 const ingredientList  = document.getElementById('ingredients')
 const instructionContent = document.getElementById('instructions')
 
+const test = document.getElementById('test')
+
 button.addEventListener('click', getRecipe)
 
 function getRecipe(){
@@ -41,9 +43,13 @@ function getRecipe(){
               });
 
 
-            //instructions
-            const instructions = mealArr.strInstructions
-            instructionContent.textContent = instructions
+            //instructions with added number and spaces
+            const instructionsArray = mealArr.strInstructions.split('\r\n');
+            const instructionsHTML = instructionsArray.map((instruction, index) => {
+                return `<span class="line-number">${index + 1})</span> ${instruction}<br><br>`;
+            });
+            instructionContent.innerHTML = instructionsHTML.join('');
+        
 
             //let vidTutorial = mealArr.strYoutube //video tutorial
 
