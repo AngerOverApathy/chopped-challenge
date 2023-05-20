@@ -1,4 +1,5 @@
 let button = document.getElementById('btn')
+let recipeName = document.getElementById('recipe-name')
 
 button.addEventListener('click', getRecipe)
 
@@ -9,11 +10,13 @@ function getRecipe(){
 
             const mealArr = data.meals[0]
 
-            console.log(mealArr.strMeal) //name
-            console.log(mealsArr.strInstructions)//instructions
+            recipeName.innerText = mealArr.strMeal //name
+            console.log(mealArr.strInstructions)//instructions
 
-            let foodImg = mealsArr.strMealThumb //food image
-            let vidTutorial = mealsArr.strYoutube //video tutorial
+            let foodImg = mealArr.strMealThumb //food image
+            console.log(foodImg)
+
+            let vidTutorial = mealArr.strYoutube //video tutorial
 
             //get each ingredient from object properties
             Object.keys(mealArr).forEach(key => {
