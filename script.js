@@ -15,7 +15,7 @@ function getRecipe(){
     ingredientList.innerText=''
     instructionContent.innerText=''
 
-    fetch('https://rocky-peak-03610.herokuapp.com/http://www.themealdb.com/api/json/v1/1/random.php')
+    fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php')
         .then(response => response.json())
         .then(data => {
             const mealArr = data.meals[0]
