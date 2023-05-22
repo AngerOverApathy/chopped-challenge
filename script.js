@@ -1,6 +1,6 @@
 const button = document.getElementById('btn')
 const recipeName = document.getElementById('recipe-name')
-const imageElement = document.getElementById('picture');
+const imageElement = document.getElementById('filler-picture');
 const ingredientList  = document.getElementById('ingredients')
 const instructionContent = document.getElementById('instructions')
 
