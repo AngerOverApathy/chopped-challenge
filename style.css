@@ -1,9 +1,11 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: rgb(56, 80, 123);
 }
 
 .banner {
+    box-sizing: border-box;
     width: 100%; 
     height: auto;
     display: flex;
@@ -11,23 +13,24 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    border: solid 3px rgb(222, 118, 14);
 }
 
 .banner-img {
     width: 100%;
     height: 12em;
     object-fit: cover;
-    border: solid 3px rgb(222, 118, 14);
 }
 
 .heading {
     position: absolute;
-    font-size: 4em;
+    font-size: 3.5em;
     color: rgb(28, 63, 126);
     text-shadow: 2px 2px 4px rgba(11, 8, 5, 0.5);
-    top: 1.8em;
+    top: 2em;
     border: 2px solid rgb(222, 118, 14);
     background-color: white;
+    padding: 0.25em;
 }
 
 .btn {
