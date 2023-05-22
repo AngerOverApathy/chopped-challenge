@@ -13,13 +13,26 @@ body {
     text-align: center;
 }
 
-.banner img {
+.banner-img {
     width: 100%;
     height: 12em;
     object-fit: cover;
+    border: solid 3px rgb(222, 118, 14);
 }
 
-  
+.heading {
+    position: absolute;
+    font-size: 4em;
+    color: rgb(28, 63, 126);
+    text-shadow: 2px 2px 4px rgba(11, 8, 5, 0.5);
+    top: 1.8em;
+    border: 2px solid rgb(222, 118, 14);
+    background-color: white;
+}
+
+.btn {
+    padding: 2em;
+}
 
 #filler-picture {
     width: 300px;
