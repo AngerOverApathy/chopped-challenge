@@ -5,15 +5,16 @@ body {
 }
 
 .banner {
-    box-sizing: border-box;
-    width: 100%; 
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border: solid 3px rgb(222, 118, 14);
+  box-sizing: border-box;
+  width: 100%; 
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: solid 3px rgb(222, 118, 14);
+  margin-top: 0;
 }
 
 .banner-img {
