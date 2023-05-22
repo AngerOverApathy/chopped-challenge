@@ -50,3 +50,63 @@ body {
     width: 300px;
 }
 
+/* Small screens */
+@media (max-width: 767px) {
+    .banner-img {
+      height: 8em;
+    }
+  
+    .heading {
+      font-size: 2em;
+      top: 2.5em;
+    }
+  
+    .btn {
+      padding: 1em;
+    }
+  
+    #filler-picture {
+      width: 200px;
+    }
+  }
+  
+  /* Medium screens */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .banner-img {
+      height: 10em;
+    }
+  
+    .heading {
+      font-size: 3em;
+      top: 1.5em;
+    }
+  
+    .btn {
+      padding: 1.5em;
+    }
+  
+    #filler-picture {
+      width: 250px;
+    }
+  }
+  
+  /* Large screens */
+  @media (min-width: 1024px) {
+    .banner-img {
+      height: 12em;
+    }
+  
+    .heading {
+      font-size: 3.5em;
+      top: 2em;
+    }
+  
+    .btn {
+      padding: 2em;
+    }
+  
+    #filler-picture {
+      width: 300px;
+    }
+  }
+  
