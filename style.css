@@ -50,12 +50,13 @@ body {
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5em;
-    color: rgb(28, 63, 126);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5em;
+  color: rgb(28, 63, 126);
+  text-align: center;
 }
 
 .grid-holder {
@@ -101,6 +102,38 @@ body {
 .card h2, h3 {
     text-align: center;
     padding-bottom: 0.5em;
+}
+
+.search-history {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1em;
+}
+
+.clear-history-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+#clear-history-btn {
+  padding: 0.5em 1em;
+  margin-top: 0.5em;
+  background-color: rgb(222, 118, 14);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  margin: 0 auto; /* Center the button horizontally */
+}
+
+#clear-history-btn:hover {
+  background-color: rgb(192, 102, 10);
+}
+
+.card.ingredients-card,
+.card.span {
+  text-align: left;
 }
 
 /* Small screens */
