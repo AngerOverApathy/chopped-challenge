@@ -3,6 +3,7 @@ const recipeName = document.getElementById('recipe-name')
 const imageElement = document.getElementById('filler-picture');
 const ingredientList  = document.getElementById('ingredients')
 const instructionContent = document.getElementById('instructions')
+const videoLink = document.getElementById('video')
 
 const test = document.getElementById('test')
 
@@ -19,6 +20,7 @@ function getRecipe(){
         .then(response => response.json())
         .then(data => {
             const mealArr = data.meals[0]
+
             //recipe name
             recipeName.innerText = mealArr.strMeal 
             //food image
@@ -46,9 +48,10 @@ function getRecipe(){
             //instructions with added number and spaces
             const instructions = mealArr.strInstructions.replace(/\r\n/g, '<br>');
             instructionContent.innerHTML = instructions;
-        
+            videoLink.innerHTML = `<a href=${mealArr.strYoutube}>Click Here for Video Tutorial</a>` //video tutorial
 
-            //let vidTutorial = mealArr.strYoutube //video tutorial
+             // Save recipe data to local storage
+             localStorage.setItem('recipeData', JSON.stringify(mealArr))
 
         })
         .catch(err => console.error(err));

@@ -76,6 +76,12 @@ body {
     grid-column: 2 / span 2;
 }
 
+.center {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 /* Small screens */
 @media (max-width: 767px) {
     .banner-img {
@@ -89,6 +95,8 @@ body {
   
     .btn {
       padding: 1em;
+      margin-top: 1em;
+    
     }
   
     #filler-picture {
