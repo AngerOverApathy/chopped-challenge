@@ -41,6 +41,12 @@ body {
     color: white;
     font-weight: bold;
     text-transform: uppercase;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+#btn:active {
+    background-color: rgb(192, 102, 10);
 }
 
 .container {
