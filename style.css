@@ -88,6 +88,15 @@ body {
     font-size: xx-large;
 }
 
+#ingredients, #instructions {
+    font-size: 1.5em;
+}
+
+.card h2, h3 {
+    text-align: center;
+    padding-bottom: 0.5em;
+}
+
 /* Small screens */
 @media (max-width: 767px) {
     .banner-img {
