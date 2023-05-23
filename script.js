@@ -49,7 +49,7 @@ function updateSearchHistory() {
   });
 }
 
-// Display search details
+// Display search details in HTML
 function displaySearch(search) {
   recipeName.innerText = search.strMeal;
   imageElement.src = search.strMealThumb;
@@ -57,11 +57,11 @@ function displaySearch(search) {
   instructionContent.innerText = '';
 
   Object.keys(search).forEach(key => {
-    if (key.startsWith('strIngredient')) {
-      const ingredientNumber = key.slice(13);
-      const measurementKey = `strMeasure${ingredientNumber}`;
+    if (key.startsWith('strIngredient')) { 
+      const ingredientNumber = key.slice(13); //extracts the ingredient number by slicing the key from index 13, i.e. 'strIngredient1', the extracted ingredient number would be '1'
+      const measurementKey = `strMeasure${ingredientNumber}`; //get ingredient
 
-      if (search[key] && search[measurementKey]) {
+      if (search[key] && search[measurementKey]) { //checks if both the ingredient key and the measurement key have truthy values in the search object
         const ingredient = search[key];
         const measurement = search[measurementKey];
 
@@ -71,7 +71,6 @@ function displaySearch(search) {
       }
     }
   });
-
   const instructions = search.strInstructions.replace(/\r\n/g, '<br>');
   instructionContent.innerHTML = instructions;
   videoLink.innerHTML = `<a href=${search.strYoutube}>Click Here for Video Tutorial</a>`;
