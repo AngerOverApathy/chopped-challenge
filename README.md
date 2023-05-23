@@ -20,11 +20,15 @@ Welcome to Recipe Roulette! This front-end project is a web application that gen
 
 -To use Recipe Roulette, follow these steps:
 
+-Use Live Here: https://angeroverapathy.github.io/chopped-challenge/
+
+OR
+
 -Clone the repository or download the project files.
 
 -Open the index.html file in a web browser.
 
--Click the "Spin" button to generate a random recipe. The recipe details will be displayed on the screen, including the name, ingredients, and instructions.
+-Click the "Generate Recipe" button to generate a random recipe. The recipe details will be displayed on the screen, including the name, ingredients, and instructions.
 
 -To view previous searches, click the "History" button. The last 10 searches will be displayed. Click on any search item to view the corresponding recipe details.
 
