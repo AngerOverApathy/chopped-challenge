@@ -89,7 +89,7 @@ function getRecipe() {
   ingredientList.innerText = '';
   instructionContent.innerText = '';
 
-  fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php')
+  fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php') //first http is for CORS followed by API call
     .then(response => response.json())
     .then(data => {
       const mealArr = data.meals[0];
@@ -100,7 +100,8 @@ function getRecipe() {
       recipeName.innerText = mealArr.strMeal;
       imageElement.src = mealArr.strMealThumb;
 
-      Object.keys(mealArr).forEach(key => {
+      //extracts the ingredient number and creates the measurement key based on each key in the mealArr object
+      Object.keys(mealArr).forEach(key => { 
         if (key.startsWith('strIngredient')) {
           const ingredientNumber = key.slice(13);
           const measurementKey = `strMeasure${ingredientNumber}`;
@@ -122,4 +123,3 @@ function getRecipe() {
     })
     .catch(err => console.error(err));
 }
-
