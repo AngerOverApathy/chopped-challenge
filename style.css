@@ -94,6 +94,16 @@ body {
     #filler-picture {
       width: 200px;
     }
+  
+    .grid-holder {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .card {
+      margin: 1em;
+      padding: 1em;
+    }
   }
   
   /* Medium screens */
@@ -113,6 +123,16 @@ body {
   
     #filler-picture {
       width: 250px;
+    }
+  
+    .grid-holder {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .card {
+      margin: 1em;
+      padding: 1em;
     }
   }
   
