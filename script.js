@@ -83,43 +83,44 @@ function clearSearchHistory() {
 }
 
 // Fetch a random recipe
-function getRecipe() {
+async function getRecipe() {
   recipeName.innerText = '';
   imageElement.src = '';
   ingredientList.innerText = '';
   instructionContent.innerText = '';
 
-  fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php') //first http is for CORS followed by API call
-    .then(response => response.json())
-    .then(data => {
-      const mealArr = data.meals[0];
+  try {
+    const response = await fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php');
+    const data = await response.json();
+    
+    const mealArr = data.meals[0];
 
-      saveSearchToLocalStorage(mealArr);
-      updateSearchHistory();
+    saveSearchToLocalStorage(mealArr);
+    updateSearchHistory();
 
-      recipeName.innerText = mealArr.strMeal;
-      imageElement.src = mealArr.strMealThumb;
+    recipeName.innerText = mealArr.strMeal;
+    imageElement.src = mealArr.strMealThumb;
 
-      //extracts the ingredient number and creates the measurement key based on each key in the mealArr object
-      Object.keys(mealArr).forEach(key => { 
-        if (key.startsWith('strIngredient')) {
-          const ingredientNumber = key.slice(13);
-          const measurementKey = `strMeasure${ingredientNumber}`;
+    Object.keys(mealArr).forEach(key => {
+      if (key.startsWith('strIngredient')) {
+        const ingredientNumber = key.slice(13);
+        const measurementKey = `strMeasure${ingredientNumber}`;
 
-          if (mealArr[key] && mealArr[measurementKey]) {
-            const ingredient = mealArr[key];
-            const measurement = mealArr[measurementKey];
+        if (mealArr[key] && mealArr[measurementKey]) {
+          const ingredient = mealArr[key];
+          const measurement = mealArr[measurementKey];
 
-            const li = document.createElement('li');
-            li.textContent = `${measurement} ${ingredient}`;
-            ingredientList.appendChild(li);
-          }
+          const li = document.createElement('li');
+          li.textContent = `${measurement} ${ingredient}`;
+          ingredientList.appendChild(li);
         }
-      });
+      }
+    });
 
-      const instructions = mealArr.strInstructions.replace(/\r\n/g, '<br>');
-      instructionContent.innerHTML = instructions;
-      videoLink.innerHTML = `<a href=${mealArr.strYoutube}>Click Here for Video Tutorial</a>`;
-    })
-    .catch(err => console.error(err));
+    const instructions = mealArr.strInstructions.replace(/\r\n/g, '<br>');
+    instructionContent.innerHTML = instructions;
+    videoLink.innerHTML = `<a href=${mealArr.strYoutube}>Click Here for Video Tutorial</a>`;
+  } catch (error) {
+    console.error(error);
+  }
 }
