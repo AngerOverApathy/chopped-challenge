@@ -1,126 +1,79 @@
-const button = document.getElementById('btn');
-const recipeName = document.getElementById('recipe-name');
-const imageElement = document.getElementById('filler-picture');
-const ingredientList = document.getElementById('ingredients');
-const instructionContent = document.getElementById('instructions');
-const videoLink = document.getElementById('video');
-const searchHistoryList = document.getElementById('search-history');
-const clearHistoryButton = document.getElementById('clear-history-btn');
+// Simplified element selection
+const elements = {
+  button: document.getElementById('btn'),
+  recipeName: document.getElementById('recipe-name'),
+  image: document.getElementById('filler-picture'),
+  ingredients: document.getElementById('ingredients'),
+  instructions: document.getElementById('instructions'),
+  videoLink: document.getElementById('video'),
+  historyList: document.getElementById('search-history'),
+  clearButton: document.getElementById('clear-history-btn')
+};
 
-button.addEventListener('click', getRecipe);
-clearHistoryButton.addEventListener('click', clearSearchHistory);
-window.addEventListener('load', updateSearchHistory);
+elements.button.addEventListener('click', fetchAndDisplayRecipe);
+elements.clearButton.addEventListener('click', clearSearchHistory);
+window.addEventListener('load', renderSearchHistory);
 
-// Save search to local storage
-function saveSearchToLocalStorage(searchData) {
-  const storedSearches = retrieveSearchFromLocalStorage(); //get search history in array
-  storedSearches.push(searchData); //searchData represents current search, is pushed to stored searches array
-
-  if (storedSearches.length > 10) { //will only hold up to 10 searches
-    storedSearches.shift();
-  }
-
-  localStorage.setItem('searches', JSON.stringify(storedSearches));//array is converted to a JSON string and then stored in the local storage under the key 'searches'
+// Local Storage functions
+function saveSearch(searchData) {
+  const searches = getSearches();
+  searches.push(searchData);
+  if (searches.length > 10) searches.shift();
+  localStorage.setItem('searches', JSON.stringify(searches));
 }
 
-// Retrieve search history from local storage
-function retrieveSearchFromLocalStorage() {
-  const storedSearches = localStorage.getItem('searches');//retrieve the stored value for the key 'searches'
-  return storedSearches ? JSON.parse(storedSearches) : [];//if the stored value exists, it is parsed and returned as an array, if no stored value, return empty array
+function getSearches() {
+  const searches = localStorage.getItem('searches');
+  return searches ? JSON.parse(searches) : [];
 }
 
-// Create a list item for search history
-function createSearchHistoryItem(search) {
-  const listItem = document.createElement('li'); //create li
-  listItem.textContent = search.strMeal; //li content is recipe name
-  listItem.addEventListener('click', () => { //add event listener to recipe 
-    displaySearch(search); //when clicked, invoke display search item
-  });
-  return listItem; //return clicked recipe
+// DOM manipulation functions
+function createListItem(search) {
+  const item = document.createElement('li');
+  item.textContent = search.strMeal;
+  item.addEventListener('click', () => displaySearchDetails(search));
+  return item;
 }
 
-// Update search history in the DOM
-function updateSearchHistory() {
-  searchHistoryList.innerHTML = ''; //clear history
-  const searches = retrieveSearchFromLocalStorage(); //stored searches
-  searches.forEach(search => {
-    const listItem = createSearchHistoryItem(search); //history search items stored in variable
-    searchHistoryList.appendChild(listItem); //append variable to search history list
-  });
+function renderSearchHistory() {
+  elements.historyList.innerHTML = '';
+  getSearches().forEach(search => elements.historyList.appendChild(createListItem(search)));
 }
 
-// Display search details in HTML
-function displaySearch(search) {
-  recipeName.innerText = search.strMeal;
-  imageElement.src = search.strMealThumb;
-  ingredientList.innerHTML = '';
-  instructionContent.innerText = '';
-
-  Object.keys(search).forEach(key => {
-    if (key.startsWith('strIngredient')) { 
-      const ingredientNumber = key.slice(13); //extracts the ingredient number by slicing the key from index 13, i.e. 'strIngredient1', the extracted ingredient number would be '1'
-      const measurementKey = `strMeasure${ingredientNumber}`; //get ingredient
-
-      if (search[key] && search[measurementKey]) { //checks if both the ingredient key and the measurement key have truthy values in the search object
-        const ingredient = search[key];
-        const measurement = search[measurementKey];
-
-        const li = document.createElement('li');
-        li.textContent = `${measurement} ${ingredient}`;
-        ingredientList.appendChild(li);
-      }
-    }
-  });
-  const instructions = search.strInstructions.replace(/\r\n/g, '<br>');
-  instructionContent.innerHTML = instructions;
-  videoLink.innerHTML = `<a href=${search.strYoutube}>Click Here for Video Tutorial</a>`;
+function displaySearchDetails(search) {
+  const { strMeal, strMealThumb, strInstructions, strYoutube } = search;
+  elements.recipeName.innerText = strMeal;
+  elements.image.src = strMealThumb;
+  elements.ingredients.innerHTML = formatIngredients(search);
+  elements.instructions.innerHTML = strInstructions.replace(/\r\n/g, '<br>');
+  elements.videoLink.innerHTML = `<a href=${strYoutube}>Click Here for Video Tutorial</a>`;
 }
 
-// Function to clear the search history
-function clearSearchHistory() {
-  localStorage.removeItem('searches');
-  searchHistoryList.innerHTML = '';
+function formatIngredients(search) {
+  return Object.keys(search)
+    .filter(key => key.startsWith('strIngredient') && search[key])
+    .map(key => {
+      const measureKey = `strMeasure${key.slice(13)}`;
+      return `<li>${search[measureKey]} ${search[key]}</li>`;
+    })
+    .join('');
 }
 
-// Fetch a random recipe
-async function getRecipe() {
-  recipeName.innerText = '';
-  imageElement.src = '';
-  ingredientList.innerText = '';
-  instructionContent.innerText = '';
-
+// Fetch and display recipe
+async function fetchAndDisplayRecipe() {
   try {
     const response = await fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php');
-    const data = await response.json();
-    
-    const mealArr = data.meals[0];
-
-    saveSearchToLocalStorage(mealArr);
-    updateSearchHistory();
-
-    recipeName.innerText = mealArr.strMeal;
-    imageElement.src = mealArr.strMealThumb;
-
-    Object.keys(mealArr).forEach(key => {
-      if (key.startsWith('strIngredient')) {
-        const ingredientNumber = key.slice(13);
-        const measurementKey = `strMeasure${ingredientNumber}`;
-
-        if (mealArr[key] && mealArr[measurementKey]) {
-          const ingredient = mealArr[key];
-          const measurement = mealArr[measurementKey];
-
-          const li = document.createElement('li');
-          li.textContent = `${measurement} ${ingredient}`;
-          ingredientList.appendChild(li);
-        }
-      }
-    });
-
-    const instructions = mealArr.strInstructions.replace(/\r\n/g, '<br>');
-    instructionContent.innerHTML = instructions;
-    videoLink.innerHTML = `<a href=${mealArr.strYoutube}>Click Here for Video Tutorial</a>`;
+    const { meals } = await response.json();
+    saveSearch(meals[0]);
+    renderSearchHistory();
+    displaySearchDetails(meals[0]);
   } catch (error) {
     console.error(error);
   }
+}
+
+// Clear search history
+function clearSearchHistory() {
+  localStorage.removeItem('searches');
+  elements.historyList.innerHTML = '';
 }
