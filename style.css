@@ -88,6 +88,26 @@ body {
     grid-column: 2 / span 2;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Ensures the wrapper takes the full width of its container */
+}
+
+#clear-history-btn {
+  padding: 0.5em 1em;
+  margin-top: 0.5em;
+  background-color: rgb(222, 118, 14);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+#clear-history-btn:hover {
+  background-color: rgb(192, 102, 10);
+}
+
 .center {
     justify-content: center;
     align-items: center;
@@ -106,7 +126,7 @@ body {
 
 .search-history {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* Changes to 3 columns */
   grid-gap: 1em;
 }
 
@@ -151,6 +171,26 @@ body {
   transform: translate(-50%, -50%); /* Adjust the position to truly center it */
   z-index: 1000; /* Ensure it's above other elements */
 }
+
+ul#search-history {
+  list-style-type: none; /* Removes the default list styling */
+  padding: 0; /* Resets default padding */
+}
+
+ul#search-history li {
+  padding: 10px 20px; /* Adds padding to each list item */
+  margin-bottom: 5px; /* Adds margin between items */
+  background-color: #f0f0f0; /* Light background color */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  cursor: pointer; /* Changes the cursor to indicate clickability */
+}
+
+ul#search-history li:hover {
+  background-color: #e0e0e0; /* Slightly darker background on hover */
+  color: #333; /* Changes text color on hover */
+}
+
 
 /* Small screens */
 @media (max-width: 767px) {

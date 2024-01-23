@@ -18,7 +18,7 @@ window.addEventListener('load', renderSearchHistory);
 function saveSearch(searchData) {
   const searches = getSearches();
   searches.push(searchData);
-  if (searches.length > 10) searches.shift();
+  if (searches.length > 15) searches.shift();
   localStorage.setItem('searches', JSON.stringify(searches));
 }
 
