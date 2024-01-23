@@ -62,11 +62,17 @@ function formatIngredients(search) {
 // Fetch and display recipe
 async function fetchAndDisplayRecipe() {
   try {
-    const response = await fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php');
-    const { meals } = await response.json();
-    saveSearch(meals[0]);
-    renderSearchHistory();
-    displaySearchDetails(meals[0]);
+       // Show loading indicator
+       document.getElementById('loading-indicator').style.display = 'block';
+
+       const response = await fetch('https://helpful-highway.onrender.com/http://www.themealdb.com/api/json/v1/1/random.php');
+       const { meals } = await response.json();
+       saveSearch(meals[0]);
+       renderSearchHistory();
+       displaySearchDetails(meals[0]);
+   
+       // Hide loading indicator
+       document.getElementById('loading-indicator').style.display = 'none';
   } catch (error) {
     console.error(error);
   }
